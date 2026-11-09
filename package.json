@@ -1,0 +1,12 @@
+{
+  "name": "ask-dokita",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Multilingual (English, Pidgin, Yoruba, Hausa) health triage assistant with a deterministic emergency safety layer.",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test"
+  },
+  "engines": { "node": ">=22" }
+}

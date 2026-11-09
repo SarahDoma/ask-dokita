@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ask Dokita</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div>
+      <h1>Ask Dokita</h1>
+      <p id="tagline">Tell me how you feel. I'll help you decide what to do next.</p>
+    </div>
+    <label class="lang">
+      <span class="sr">Language</span>
+      <select id="lang">
+        <option value="en">English</option>
+        <option value="pcm">Pidgin</option>
+        <option value="yo">Yorùbá</option>
+        <option value="ha">Hausa</option>
+      </select>
+    </label>
+  </header>
+
+  <div class="banner" id="banner">
+    Not a doctor. I give general guidance only and cannot diagnose. In an emergency call <strong>112</strong> or go to the nearest hospital.
+  </div>
+
+  <main id="chat" aria-live="polite"></main>
+
+  <div class="chips" id="chips"></div>
+
+  <form id="form" autocomplete="off">
+    <input id="input" type="text" maxlength="1000" placeholder="Type your symptoms…" aria-label="Describe your symptoms">
+    <button id="send" type="submit">Send</button>
+  </form>
+
+  <script src="app.js"></script>
+</body>
+</html>
