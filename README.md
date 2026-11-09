@@ -40,6 +40,9 @@ npm test
 ```
 Without an API key, the safety rules still work, and every other message gets a "see a clinic" reply. The default model is `gemini-3.5-flash-lite`. You can change it with `GEMINI_MODEL`.
 
+## Deploying (free)
+The repo includes a [Render](https://render.com) Blueprint (`render.yaml`). In Render, choose **New → Blueprint**, select this repo, and paste your `GEMINI_API_KEY` when asked. On the free plan the app sleeps when nobody uses it, so the first visit afterwards takes about a minute to load.
+
 ## Known limits
 - The Yoruba and Hausa keyword lists and translations need review by native speakers.
 - The keyword matching can miss unusual phrasings. The AI is told to escalate to "urgent" whenever something sounds life-threatening, as a second net.

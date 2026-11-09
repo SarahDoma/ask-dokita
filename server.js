@@ -16,6 +16,7 @@ const PUBLIC = path.join(__dirname, 'public');
 const PORT = Number(process.env.PORT) || 3000;
 const MODEL = process.env.GEMINI_MODEL || 'gemini-3.5-flash-lite';
 const API_KEY = process.env.GEMINI_API_KEY;
+const TRUST_PROXY = process.env.TRUST_PROXY === '1' || process.env.RENDER === 'true';
 const LANGS = ['en', 'pcm', 'yo', 'ha'];
 const MAX_MESSAGES = 20;
 const MAX_CHARS = 1000;
@@ -72,7 +73,10 @@ export function validate(body) {
 }
 
 async function handleTriage(req, res) {
-  const ip = req.socket.remoteAddress || 'unknown';
+  // On a host like Render every request arrives via its proxy, so the real
+  // visitor IP is in x-forwarded-for. Only trust that header behind a proxy.
+  const forwarded = TRUST_PROXY && String(req.headers['x-forwarded-for'] || '').split(',')[0].trim();
+  const ip = forwarded || req.socket.remoteAddress || 'unknown';
   if (rateLimited(ip)) return json(res, 429, { error: 'Too many requests. Please wait a minute.' });
 
   let body;
@@ -129,6 +133,7 @@ async function serveStatic(req, res) {
 
 export const server = http.createServer((req, res) => {
   if (req.method === 'POST' && req.url === '/api/triage') return void handleTriage(req, res);
+  if (req.method === 'GET' && req.url === '/healthz') return json(res, 200, { ok: true });
   if (req.method === 'GET') return void serveStatic(req, res);
   res.writeHead(405).end('Method not allowed');
 });

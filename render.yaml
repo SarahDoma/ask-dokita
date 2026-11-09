@@ -1,0 +1,14 @@
+# Render Blueprint: https://render.com/docs/blueprint-spec
+services:
+  - type: web
+    name: ask-dokita
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /healthz
+    envVars:
+      - key: GEMINI_API_KEY
+        sync: false # you paste this in the Render dashboard; never committed
+      - key: NODE_VERSION
+        value: "22"
